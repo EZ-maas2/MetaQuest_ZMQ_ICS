@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using NetMQ;
 using NetMQ.Sockets;
+using System;
+using System.Threading;
 
 
 public class ZMQ : MonoBehaviour
@@ -35,7 +37,7 @@ public class ZMQ : MonoBehaviour
             {
                 socket.SendMoreFrame("Coin").SendFrame("Touched coin!");
                 boolTouchedCoin = false;
-                message = socket.ReceiveMessage();
+                string message = socket.ReceiveFrameString();
                 if (message == "1")
                 {
                     OnPythonResponse?.Invoke();

@@ -5,10 +5,12 @@ using Unity;
 
 public class TouchCoin : MonoBehaviour
 {
+    
     // this script is attached to the coin
     // Start is called before the first frame update
-    void OnCollisionEnter(Collider collider){
-        if collider.CompareTag("Hand"){
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Hand")){
             TouchCoinStatic.coinState = true;
         }
     }

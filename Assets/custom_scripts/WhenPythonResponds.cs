@@ -18,13 +18,13 @@ public class WhenPythonResponds : MonoBehaviour
 // this function will Destroy the current Coin object and create a new one somewhere else
   void ReactToPython()
   {
-    Destroy(GameObject.FindGameObjectsWithTag("Coin"));
-    position = new Vector3(Random.Range(xRange), y, Random.Range(zRange));
+    Destroy(GameObject.FindGameObjectWithTag("Coin"));
+    Vector3 position = new Vector3(Random.Range(xRange.x, xRange.y), y, Random.Range(zRange.x, zRange.y));
     Instantiate(coinPrefab, position, Quaternion.identity);
   }
 
 
-  OnDestroy(){
+  void  OnDestroy(){
     zmq.OnPythonResponse -= ReactToPython;
   }
 }
