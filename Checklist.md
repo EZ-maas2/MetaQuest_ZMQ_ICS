@@ -10,4 +10,9 @@ This is an abbreviated version olf the tutorial that is supposed to help with qu
 - [ ] Did you configure OVR Manager?
 If not, go to OVRCameraRigInteraction - OVRRig - OVR Manager (Script). Under Target devices select Quest 3. Under tracking Origin type select Eye level. Under Quest features, change Hand Tracking Support select Controllers and Hands or Hands only (depending on your project) and set Hand Tracking Frequency to HIGH.
 Are you using Passthrough? Under Quest features, select Passthrough Support - Supported and Insight Passthrough - Enable Passthrough.
-- [ ] 
+
+
+# ZMQ
+- [ ]  Did you install NetMQ (C# port for ZMQ) from https://github.com/GlitchEnzo/NuGetForUnity/releases/ ? If not, then download the NuGetForUnity.VERSION.unitypackage into your game project folder. 
+- [ ]  Did you import the installed package? Go to  Assets - Import package - Custom package - Select NuGetForUnity.VERSION.unitypackage - Restart the editor
+- [ ]  Did you install NetMQ in your project? Go to NuGet - Search NetMQ - Select and Install
