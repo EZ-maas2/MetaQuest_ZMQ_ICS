@@ -9,7 +9,7 @@ using System.Threading;
 
 public class ZMQ : MonoBehaviour
 {
-    private string server_address = "tcp://localhost:5557"; // localhost address
+    private string server_address = "tcp://192.168.178.101:5557"; 
     public event Action<string> OnPythonResponse;
     private volatile bool threadRunning = true;
     private Thread thread;
