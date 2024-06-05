@@ -1,19 +1,23 @@
 import zmq
 
-def setupSocketReply(ip, port):
+def setupSocketReply(ip, port, localhost  = False):
     context = zmq.Context()
     socket = context.socket(zmq.REP)
-    socket.connect(f"tcp://{ip}:{port}")
+    if localhost:
+        socket.bind(f"tcp://*:{port}")
+        return socket
+    socket.bind(f"tcp://{ip}:{port}")
     return socket
 
 if __name__ == "__main__":
-    PORT = 5556
-    ip = '10.158.102.193'
-    topic = 'Coin'
-    socket = setupSocketReply(ip, PORT)
+    PORT = 5557
+    ip = '192.168.178.101'
+    socket = setupSocketReply(ip, PORT, localhost=True)
 
     while True:
-        message = socket.recv()
-        print(message)
-        socket.send(1)
+        print("Waiting for a new string")
+        message = socket.recv_string()
+        print(f"Received request: {message}")
+        socket.send_string("Ok!")
+        print("Sent string")
     

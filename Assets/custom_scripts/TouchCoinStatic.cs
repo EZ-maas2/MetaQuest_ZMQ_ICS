@@ -20,6 +20,7 @@ public static class TouchCoinStatic
             _coinState = value;
             if (_coinState)
             {
+                Debug.Log("coin state got  switched to positive  --------------------");
                 OnTouchedCoin?.Invoke();
                 coinState = false; // immediately return the coin state back to false after sending the message to python
             }

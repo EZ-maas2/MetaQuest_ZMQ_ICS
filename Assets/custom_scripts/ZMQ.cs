@@ -9,9 +9,8 @@ using System.Threading;
 
 public class ZMQ : MonoBehaviour
 {
-    public string server_address = "tcp://*:5556";
-    public event Action OnPythonResponse;
-
+    private string server_address = "tcp://localhost:5557"; // localhost address
+    public event Action<string> OnPythonResponse;
     private volatile bool threadRunning = true;
     private Thread thread;
     private RequestSocket socket; // we select Request socket because we are using the request - response communication pattern
@@ -28,28 +27,34 @@ public class ZMQ : MonoBehaviour
 
     void RequestFunc()
     {
+        
         AsyncIO.ForceDotNet.Force();
-        socket.Options.SendHighWatermark = 1000;
-        socket.Bind(server_address);
-        while (threadRunning)
-        {
-            if (boolTouchedCoin)
+        using (socket = new RequestSocket())
             {
-                socket.SendMoreFrame("Coin").SendFrame("Touched coin!");
-                boolTouchedCoin = false;
-                string message = socket.ReceiveFrameString();
-                if (message == "1")
+            socket.Connect(server_address);
+            while (threadRunning)
+            {
+                if (boolTouchedCoin)
                 {
-                    OnPythonResponse?.Invoke();
+                    socket.SendFrame("Touched coin!");
+                    boolTouchedCoin = false;
+                    string message = socket.ReceiveFrameString();
+                    OnPythonResponse?.Invoke(message.ToString());
+                    
                 }
-            }
+                else
+                {
+                    Thread.Sleep(100); 
+                }
 
-        }
+            }
+            }
             
     }
 
 
     void ReactTouchedCoin(){
+        Debug.Log("detected before the thread");
         boolTouchedCoin = true;
     }
 

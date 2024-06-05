@@ -8,9 +8,10 @@ public class TouchCoin : MonoBehaviour
     
     // this script is attached to the coin
     // Start is called before the first frame update
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collision.collider.CompareTag("Hand")){
+        if (collider.name  == "HandCollider"){
+            Debug.Log($"correct tag -----------------------------");
             TouchCoinStatic.coinState = true;
         }
     }

@@ -16,8 +16,9 @@ public class WhenPythonResponds : MonoBehaviour
   }
 
 // this function will Destroy the current Coin object and create a new one somewhere else
-  void ReactToPython()
+  void ReactToPython(string msg)
   {
+    Debug.Log($"message was {msg}==========================");
     Destroy(GameObject.FindGameObjectWithTag("Coin"));
     Vector3 position = new Vector3(Random.Range(xRange.x, xRange.y), y, Random.Range(zRange.x, zRange.y));
     Instantiate(coinPrefab, position, Quaternion.identity);
