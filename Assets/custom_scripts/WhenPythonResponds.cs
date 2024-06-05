@@ -19,9 +19,10 @@ public class WhenPythonResponds : MonoBehaviour
   void ReactToPython(string msg)
   {
     Debug.Log($"message was {msg}==========================");
-    Destroy(GameObject.FindGameObjectWithTag("Coin"));
+    
     Vector3 position = new Vector3(Random.Range(xRange.x, xRange.y), y, Random.Range(zRange.x, zRange.y));
-    Instantiate(coinPrefab, position, Quaternion.identity);
+    Quaternion randomRotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+    Instantiate(coinPrefab, position, randomRotation);
   }
 
 

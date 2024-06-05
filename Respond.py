@@ -17,7 +17,8 @@ def play_sound():
 
 if __name__ == "__main__":
     PORT = 5557
-    ip = '192.168.178.101'
+    ip = '172.0.0.1' # this is a standard localhost ip, change it to the ip of your
+
     socket = setupSocketReply(ip, PORT, localhost=False)
 
     while True:

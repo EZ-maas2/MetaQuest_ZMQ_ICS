@@ -9,7 +9,7 @@ using System.Threading;
 
 public class ZMQ : MonoBehaviour
 {
-    private string server_address = "tcp://192.168.178.101:5557"; 
+    private string server_address = "tcp://127.0.0.1:5557"; // this is a standard localhost ip , change it to teh ip of your laptop
     public event Action<string> OnPythonResponse;
     private volatile bool threadRunning = true;
     private Thread thread;
@@ -17,7 +17,7 @@ public class ZMQ : MonoBehaviour
     private volatile bool boolTouchedCoin = false;
 
 
-    void Awake()
+    void Awake() // this executes when the game loads
     {
        // subscribe to an event in TouchCoinStatic that would inform us that we need to send something to Python
         TouchCoinStatic.OnTouchedCoin += ReactTouchedCoin;
@@ -31,20 +31,19 @@ public class ZMQ : MonoBehaviour
         AsyncIO.ForceDotNet.Force();
         using (socket = new RequestSocket())
             {
-            socket.Connect(server_address);
+            socket.Connect(server_address); // this connects us to the server that we created on our laptop
             while (threadRunning)
             {
                 if (boolTouchedCoin)
                 {
-                    socket.SendFrame("Touched coin!");
+                    socket.SendFrame("Touched coin!"); // send message to laptop
                     boolTouchedCoin = false;
-                    string message = socket.ReceiveFrameString();
-                    OnPythonResponse?.Invoke(message.ToString());
-                    
+                    string message = socket.ReceiveFrameString(); // receive message back
+                    OnPythonResponse?.Invoke(message.ToString());  // react to receiving a message back by notifying a subscriber in WhenPythonResponds.cs (this creates a  new coin)
                 }
                 else
                 {
-                    Thread.Sleep(100); 
+                    Thread.Sleep(100); // thread sleeps for 100 ms to reduce the CPU load
                 }
 
             }
