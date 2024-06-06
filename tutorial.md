@@ -99,9 +99,12 @@ Set up a Collider object. Collider objects are the important attributes of Game 
 Important! There is supposed to be a default capsule collider object attached to your coin object when you create it. Delete it and replace it with a box collider. Do that by clicking Add Component and searching Box Collider. Unfortunately, it will not be perfectly aligned with the coin object because Unity has no cylinder collider objects. 
 We need this collider  to detect when the Hand object collides with the coin.
 
-In order to make the coin react to the collision, we need to write a C# script and attach it to the coin. 
-We are going to use Unity's inbuilt way to handle collisions. We will use the OnTriggerEnter function so that when the Box Collider attached to the coin collides with something, it calls this function.
-The function is going to check what the Box Collider collided with (we will get to it in a second), record it in a static class TouchCoinStatic, and delete the coin object.
-![](![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4631681e-53ea-466f-8702-a5e38974dea3))
+To make the coin react to the collision, we must write a C# script and attach it to the coin Game Object. Let's call the script TouchCoin.
+In our game, we will Destroy and Instantiate multiple coins. To make communicating with the Python side easier, we will also make a separate static class called  TouchCoinStatic.
+It is not going to be attached to any game object. Its only job is tracking whether a coin was touched and communicating it to the Python code. 
+
+Let's get back to the TouchCoin script. We are going to use Unity's in-built way to handle collisions. We will use the OnTriggerEnter function: when the Box Collider attached to the coin collides with something, it calls this function. The function will check what the Box Collider collided with, record the collision in a static class TouchCoinStatic, and delete the coin object.
+
+![A screenshot of the TouchCoin script](![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4631681e-53ea-466f-8702-a5e38974dea3))
 
 
