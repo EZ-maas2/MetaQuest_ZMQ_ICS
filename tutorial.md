@@ -105,6 +105,6 @@ It is not going to be attached to any game object. Its only job is tracking whet
 
 Let's get back to the TouchCoin script. We are going to use Unity's in-built way to handle collisions. We will use the OnTriggerEnter function: when the Box Collider attached to the coin collides with something, it calls this function. The function will check what the Box Collider collided with, record the collision in a static class TouchCoinStatic, and delete the coin object.
 
-![A screenshot of the TouchCoin script](![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4631681e-53ea-466f-8702-a5e38974dea3))
+![A screenshot of the TouchCoin script](![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/blob/master/Images/TouchCoin.png))
 
 
