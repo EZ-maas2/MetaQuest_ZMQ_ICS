@@ -35,10 +35,7 @@ Open Unity Hub (Install Android Build Support)
 From Unity Asset Store Install Meta XR All-in-One SDK 
 
 https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657 
-
-A screenshot of a computer
-
-Description automatically generated 
+![]()
 
  
 
