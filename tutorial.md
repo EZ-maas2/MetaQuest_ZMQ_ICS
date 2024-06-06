@@ -94,6 +94,7 @@ Description automatically generated
 ## Let’s make a coin! 
 
 In Hierarchy, right-click and select 3D object – cylinder. In the Transform attribute, modify the position, the rotation and the size of the cylinder such that it resembles a coin. For example like this: 
+![](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/707fe895-a76f-4dfe-9bb0-8927fa88bfc9)
 
 Set up a Collider object. Collider objects are the important attributes of Game Objects that allow different objects to interact with each other.
 Important! There is supposed to be a default capsule collider object attached to your coin object when you create it. Delete it and replace it with a Box Collider. Do that by clicking Add Component and searching Box Collider. Unfortunately, it will not be perfectly aligned with the coin object because Unity has no cylinder collider objects. 
