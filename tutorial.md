@@ -94,6 +94,7 @@ Description automatically generated
 ## Let’s make a coin! 
 
 In Hierarchy, right-click and select 3D object – cylinder. In the Transform attribute, modify the position, the rotation and the size of the cylinder such that it resembles a coin. For example like this: 
+
 ![](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/707fe895-a76f-4dfe-9bb0-8927fa88bfc9)
 
 Set up a Collider object. Collider objects are the important attributes of Game Objects that allow different objects to interact with each other.
@@ -107,5 +108,20 @@ It is not going to be attached to any game object. Its only job is tracking whet
 Let's get back to the TouchCoin script. We are going to use Unity's in-built way to handle collisions. We will use the OnTriggerEnter function: when the Box Collider attached to the coin collides with something, it calls this function. The function will check what the Box Collider collided with, record the collision in a static class TouchCoinStatic, and delete the coin object.
 
 ![A screenshot of the TouchCoin script](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/blob/master/Images/TouchCoin.png)
+
+
+
+So, our plan is as follows: when we touch the coin, this is recorded by the TouchCoinStatic and passed to the ZMQ  so that it can send this information to the Python side of the code.
+Now, let's see how TouchCoinStatic looks like. 
+
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/1e958412-a573-4f96-ba0b-00d29d4825da)
+
+Once again, it is a static class; it can be modified from anywhere within the script, and it is not attached to any game objects.
+To notify ZMQ, we will use events. It is a very convenient broadcast system. Whenever the OnTouchedCoin event is Invoked (line 23), other C# classes that subscribed to it get informed and react accordingly.
+Thus, whenever anywhere in the code, the TouchCoinStatic.coinState  is set to true, the OnTouchedCoin event is invoked.
+
+
+
+
 
 
