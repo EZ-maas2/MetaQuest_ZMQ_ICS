@@ -16,18 +16,34 @@ Install ZeroMQ for Python
 
 Cmd: pip install pyzmq 
 
-Or from : https://zeromq.org/languages/python/ 
+Or from: https://zeromq.org/languages/python/ 
 
 Tutorial on how to install ZeroMQ for Unity: https://vinnik-dmitry07.medium.com/a-python-unity-interface-with-zeromq-12720d6b7288 
 
  
 
-## Make your first Unity AR game: 
+## Game premise
 
 Our game is going to be very simple.  Our laptop running Python code  will create a server, and our headset will connect to this server. We will have a coin. Once we touch the coin, it will disappear and signal to the Python side that the coin  was touched. Python will play a sound and send a response back to the headset. Once the headset gets the response from Python, it will create a new coin. 
 We will have four C# scripts and one Python script. The Python script will host a server that waits for the request from a headset, plays  a sound when the request arrives, and sends a reply.
 The first Python script will dtect when the coin is touched. The second Python script will communicate this to the thread responsible for sending requests to the server. The third script will be running the thread that sends information to the Python server. The fourth script will handle the response from the Python server.
 
+
+## If you want to make it fully by yourself
+If you would rather figure it out by yourself rather than going over  a premade project, here is some barebones advice to get you started:
+
+1) This is  how to set the Unity project for MetaQuest: https://youtu.be/4kGD8q5kEx8?si=AF9NicktIufs01nO (until he starts using Interaction SDK)
+2) This tutorial is for installing ZMQ and  setting up C# to Python communication: https://vinnik-dmitry07.medium.com/a-python-unity-interface-with-zeromq-12720d6b7288 . You might want to use the Request-Reply Pattern.
+3) For the hand tracking, you will need OVRCameraRigInteraction. You can find game objects corresponding to the hands under OVRCameraRigInteraction > OVRCameraRig >  TrackingSpace.
+4) You will need a Collider object on the object you are touching and another one attached to your hand. At least one of them should also have a RigidBody.
+5) Use a separate thread in Unity to run the ZMQ communication; otherwise, it will crash.
+6) Use events to communicate between parts of your code.
+
+Good luck!
+
+
+
+## Setup Unity project
 Open Unity Hub (Install Android Build Support) 
 
 From Unity Asset Store Install Meta XR All-in-One SDK 
