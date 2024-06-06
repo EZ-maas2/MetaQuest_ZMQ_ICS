@@ -77,7 +77,7 @@ In the Hierarchy window, you can see your Game Objects.
 
 Install OVRCameraRigInteraction  
 
-Delete Main Camera – It must be replaced by a an OVRCameraRigInteraction. Let’s call it Rig for brevity. Rig object holds information about the position of your headset, controllers and/or hands. 
+Delete Main Camera – It must be replaced by an OVRCameraRigInteraction. Let’s call it Rig for brevity. The rig object holds information about the position of your headset, controllers and/or hands. 
 
 A screenshot of a computer
 
@@ -93,20 +93,15 @@ Description automatically generated
 
 ## Let’s make a coin! 
 
-In Hierarchy, right click and select 3D object – cylinder. In Transform attribute modify the position, the rotation and the size of the cylinder such that it resembles a coin. For example like this: 
+In Hierarchy, right-click and select 3D object – cylinder. In the Transform attribute, modify the position, the rotation and the size of the cylinder such that it resembles a coin. For example like this: 
 
-A screenshot of a computer
+Set up a Collider object. Collider objects are the important attributes of Game Objects that allow different objects to interact with each other.
+Important! There is supposed to be a default capsule collider object attached to your coin object when you create it. Delete it and replace it with a box collider. Do that by clicking Add Component and searching Box Collider. Unfortunately, it will not be perfectly aligned with the coin object because Unity has no cylinder collider objects. 
+We need this collider  to detect when the Hand object collides with the coin.
 
-Description automatically generated 
+In order to make the coin react to the collision, we need to write a C# script and attach it to the coin. 
+We are going to use Unity's inbuilt way to handle collisions. We will use the OnTriggerEnter function so that when the Box Collider attached to the coin collides with something, it calls this function.
+The function is going to check what the Box Collider collided with (we will get to it in a second), record it in a static class TouchCoinStatic, and delete the coin object.
+![](![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4631681e-53ea-466f-8702-a5e38974dea3))
 
-Set up Collider objects. Collider objects are the important attributes of Game Objects that allow different objects to interact with each other. For our coin, we will have two separate collider objects. One will be attached to the Coin Game Object itself. It will be responsible for physical collisions.  
 
-Important! There is supposed to be a default capsule collider object attached to your coin object when you create it. Delete it and replace it with a box collider. Do that by clicking Add Component and searching Box Collider. It will not be perfectly aligned with the coin object, because there is unfortunately no cylinder collider objects in unity. 
-
-Next, we need a second collider. The role of this collider would be to detect if the hand is near the coin object.  To do that, create a Child object on the Coin object. In the Hierarchy, Right-click on the coin – Create Empty and rename it to the ProximityDetector.  
-
-A screenshot of a computer
-
-Description automatically generated 
-
-To change the colour of the object, right-click in the Assets window and select Create – Material. Select the colour, and drag the material onto the object. 
