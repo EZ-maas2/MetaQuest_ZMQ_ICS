@@ -96,8 +96,8 @@ Description automatically generated
 In Hierarchy, right-click and select 3D object – cylinder. In the Transform attribute, modify the position, the rotation and the size of the cylinder such that it resembles a coin. For example like this: 
 
 Set up a Collider object. Collider objects are the important attributes of Game Objects that allow different objects to interact with each other.
-Important! There is supposed to be a default capsule collider object attached to your coin object when you create it. Delete it and replace it with a box collider. Do that by clicking Add Component and searching Box Collider. Unfortunately, it will not be perfectly aligned with the coin object because Unity has no cylinder collider objects. 
-We need this collider  to detect when the Hand object collides with the coin.
+Important! There is supposed to be a default capsule collider object attached to your coin object when you create it. Delete it and replace it with a Box Collider. Do that by clicking Add Component and searching Box Collider. Unfortunately, it will not be perfectly aligned with the coin object because Unity has no cylinder collider objects. 
+We need this collider to detect when the Hand object collides with the coin.
 
 To make the coin react to the collision, we must write a C# script and attach it to the coin Game Object. Let's call the script TouchCoin.
 In our game, we will Destroy and Instantiate multiple coins. To make communicating with the Python side easier, we will also make a separate static class called  TouchCoinStatic.
