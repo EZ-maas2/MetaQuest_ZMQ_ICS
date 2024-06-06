@@ -24,13 +24,11 @@ Tutorial on how to install ZeroMQ for Unity: https://vinnik-dmitry07.medium.com/
 
 ## Make your first Unity AR game: 
 
-When you touch the cube, your Python script will play you a sound.  
-
-One script that waits for the object interaction, one script that runs a communication thread, one script that makes a new object when the previous one is destroyed.  
+Our game is going to be very simple.  Our laptop running Python code  will create a server, and our headset will connect to this server. We will have a coin. Once we touch the coin, it will disappear and signal to the Python side that the coin  was touched. Python will play a sound and send a response back to the headset. Once the headset gets the response from Python, it will create a new coin. 
+We will have four C# scripts and one Python script. The Python script will host a server that waits for the request from a headset, plays  a sound when the request arrives, and sends a reply.
+The first Python script will dtect when the coin is touched. The second Python script will communicate this to the thread responsible for sending requests to the server. The third script will be running the thread that sends information to the Python server. The fourth script will handle the response from the Python server.
 
 Open Unity Hub (Install Android Build Support) 
-
- 
 
 From Unity Asset Store Install Meta XR All-in-One SDK 
 
@@ -78,18 +76,6 @@ In the Hierarchy window, you can see your Game Objects.
 Install OVRCameraRigInteraction  
 
 Delete Main Camera – It must be replaced by an OVRCameraRigInteraction. Let’s call it Rig for brevity. The rig object holds information about the position of your headset, controllers and/or hands. 
-
-A screenshot of a computer
-
-Description automatically generated 
-
- 
-
-A screenshot of a computer program
-
-Description automatically generated 
-
- 
 
 ## Let’s make a coin! 
 
