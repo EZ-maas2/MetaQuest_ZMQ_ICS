@@ -118,7 +118,12 @@ Now, let's see how TouchCoinStatic looks like.
 
 Once again, it is a static class; it can be modified from anywhere within the script, and it is not attached to any game objects.
 To notify ZMQ, we will use events. It is a very convenient broadcast system. Whenever the OnTouchedCoin event is Invoked (line 23), other C# classes that subscribed to it get informed and react accordingly.
-Thus, whenever anywhere in the code, the TouchCoinStatic.coinState  is set to true, the OnTouchedCoin event is invoked.
+Thus, whenever anywhere in the code, the TouchCoinStatic.coinState  is set to true, the OnTouchedCoin event is invoked. In the next section, we will see how this is used to communicate with Python.
+
+
+## ZMQ
+
+First and foremost, you have to keep in mind that you can't use ZMQ in the Unity's main thread. Because Unity's main thread is responsible for all the rendering and game logic, it can't be waiting on the communication between devices. 
 
 
 
