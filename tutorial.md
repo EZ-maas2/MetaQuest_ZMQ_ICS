@@ -49,7 +49,7 @@ Open Unity Hub (Install Android Build Support)
 From Unity Asset Store Install Meta XR All-in-One SDK 
 
 https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657 
-![]()
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3d630486-56ab-4f2d-98c8-fae1e6d56283)
 
  
 
@@ -63,6 +63,9 @@ Alternatively,
 
 Go to Window – Package Manager – My Assets 
 
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/2bede7c0-c2d0-480f-be9c-74ff81708863)
+
+
 Install Meta XR All-in-One SDK 
 
 Restart Editor if prompted 
@@ -72,14 +75,15 @@ Restart Editor if prompted
  
 
 Go to File – Build Settings - Under Platform select Android – Press Switch Platform 
-
- 
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/8ae6065b-6a7d-45b8-8b99-a7e3e945819b)
 
  
 
 Go to Edit – Project Settings – XR Plugin Management  - Install XR Plugin Managment 
 
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/404b745e-880b-4a27-b3d5-d4048f5a3580)
  
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/50c6eaea-406b-46f2-8fa6-ab63596b8015)
 
  
 
@@ -88,6 +92,8 @@ Go to Edit – Project Settings – XR Plugin Management  - Install XR Plugin Ma
 The actual Game  
 
 In the Hierarchy window, you can see your Game Objects.  
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/ead3e903-facb-4db2-9df7-2da6ab737477)
+
 
 Install OVRCameraRigInteraction  
 
