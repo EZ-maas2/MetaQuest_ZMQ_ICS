@@ -67,12 +67,7 @@ Go to File – Build Settings - Under Platform select Android – Press Switch P
 Go to Edit – Project Settings – XR Plugin Management  - Install XR Plugin Managment 
 
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/404b745e-880b-4a27-b3d5-d4048f5a3580)
- 
-![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/50c6eaea-406b-46f2-8fa6-ab63596b8015)
 
- 
-
- 
 
 The actual Game  
 
@@ -82,8 +77,15 @@ In the Hierarchy window, you can see your Game Objects.
 
 Install OVRCameraRigInteraction  
 
-Delete Main Camera – It must be replaced by an OVRCameraRigInteraction. Let’s call it Rig for brevity. The rig object holds information about the position of your headset, controllers and/or hands. 
+Delete Main Camera – It must be replaced by an OVRCameraRigInteraction. The OVRCameraRigInteraction object holds information about the position of your headset, controllers and/or hands. 
+Go to  OVRCameraRigInteractio-OVRCameraRig and configure OVRCameraRig in the Inspector window
+Select Target device as Quest 3, Tracking Origin type  as Eye level, and Hand Tracking support as Hands only or Controllers and Hands
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/bfb95638-2199-48bf-bcee-03f5efc2f6be)
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/50c6eaea-406b-46f2-8fa6-ab63596b8015)
 
+If you want Passthrough to be enabled, also select Passthrough support - Supported and check Enable passthrough
+
+ 
 ## Let’s make a coin! 
 
 In Hierarchy, right-click and select 3D object – cylinder. In the Transform attribute, modify the position, the rotation and the size of the cylinder such that it resembles a coin. For example like this: 
