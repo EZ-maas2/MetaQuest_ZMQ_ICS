@@ -134,9 +134,11 @@ So, we set up a separate Unity Thread that will be responsible for communicating
 First, we will create an empty object in Unity's Hierarchy window called Thread. The script running the thread will be attached to this object. We need to create a separate object to subscribe to an OnPythonResponse event later on from our last script.
 
 Below, you can see all private and public variables declared for the ZMQ class. Most notable ones are server_address that must correspond to your laptop's IP  address, OnPythonResponse event that triggers our last C# script, and boolTouchedCoin that will control the behavior in our main function that is being run on the thread. 
+
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/e7907231-a445-47e2-b1f3-17768542939b)
 
 Then, we need to create a function that will subscribe to the abovementioned OnCoinStateChanged event. This  function is ReactChangedCoin. 
+
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/26a4416d-360a-47e3-b9d4-bf754fd73c29)
 
 Whenever the player touches the coin, the OnCoinStateChanged event will be invoked in TouchCoinStatic.cs, and the function that we subscribe to in our ZMQ.cs script will be called. In this script, invocation of the event leads to switching the boolTouchedCoin to true. This is needed because we must encapsulate the thread’s job into a single function that runs in a while loop.
@@ -147,11 +149,13 @@ We also need to use Unity’s Awake function, which is executed before any other
 
 
 Most importantly, our RequestFunc function that will be running on a thread repeatedly and exchange messages with the Python side when boolTouchedCoinvariable is set to true.
+
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4f11b70b-ac66-4c4c-83bd-0c2e6731e0c9)
 
 To ensure the connection, we have to know the IP address of the Python server. We then need to create a Request socket object and connect it to the Python’s Reply socket at the provided port and IP address. We use “using new RequestSocket() as socket” in order to ensure that we handle closing the socket correctly, like with Python’s "with open(..) as file" syntax. 
 
 The OnDestroy function is use to handle interrupting and closing a thread, unsubscribiung fro, events and so on.
+
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4ed7ce86-f32f-4b93-a73c-25f735dff9b5)
 
 
@@ -168,6 +172,7 @@ You can see the script for this below.
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
 We will need to use pyzmq, playsound and os Python packages for this script.
 The code will be pretty similar to ZMQ on the C# side, except we have to bind a server instead of connecting to a server.  Additionally,  we will be using the Reply socket type for the Python side.
+
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/d745cf65-3b30-461d-82f7-c5f5b6d96396)
 
 To indicate that the server has received the request, we will use a playsound Python package to play a sound whenever we touch a coin. The sound can be found in this project as sound_coin.mp3.
@@ -180,6 +185,7 @@ When all those parts are in finished, you just need to assign the correct object
 You need to do it in the Unity UI.
 First, create a Coin Prefab (prefabricated game object). Drag the Coin object from the Hierarchy into your Assets folder and save it as Coin. 
 Now, drag the coin prefab object to the Coin prefab section of the  Spawner game  object, and drag Thread gameobject to Zmq segment. It should look like this:
+
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/a228e5bb-4b76-4bf2-b6b1-18de479df460)
 
 This should be it! Good luck!
