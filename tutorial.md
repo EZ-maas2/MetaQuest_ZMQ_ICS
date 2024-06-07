@@ -158,7 +158,7 @@ The OnDestroy function is use to handle interrupting and closing a thread, unsub
 Thus, when the coin is touched, the clause in the thread is executed, which leads to the headset sending a “Touched coin!” message to the Python side and waiting for an answer.
 Then, it waits for an answer. Upon receiving an answer, a second event in our project – OnPythonResponse - is invoked. This event, as you might already suspect, has a subscriber in our last script: WhenPythonResponds.cs. 
 
-The job of this script is to generate a new coin in a Random position. Once again, we need a function that is going to be subscribed to the ZMQ’s OnPythomn
+The job of this script is to generate a new coin in a Random position. Create an empty game object called Spawner and attach this script to it.
 You can see the script for this below.
 
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3a95f2ef-2acf-4d11-bbc1-1cdd2ba79c65)
@@ -176,4 +176,10 @@ To indicate that the server has received the request, we will use a playsound Py
 
 
 
-When all those parts are in finished, you just need to assign
+When all those parts are in finished, you just need to assign the correct objects and properties to the public variables of your  WhenPythonResponds.cs.
+You need to do it in the Unity UI.
+First, create a Coin Prefab (prefabricated game object). Drag the Coin object from the Hierarchy into your Assets folder and save it as Coin. 
+Now, drag the coin prefab object to the Coin prefab section of the  Spawner game  object, and drag Thread gameobject to Zmq segment. It should look like this:
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/a228e5bb-4b76-4bf2-b6b1-18de479df460)
+
+This should be it! Good luck!
