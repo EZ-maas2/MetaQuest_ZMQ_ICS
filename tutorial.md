@@ -121,12 +121,24 @@ The best resource on ZMQ: https://zeromq.org/
 
 First and foremost, you must remember that you can't use ZMQ in Unity's main thread. Unity's main thread is responsible for all the rendering and game logic, and it can't wait for the communication between devices. 
 So, we set up a separate Unity Thread that will be responsible for communicating with the Python side. For that, we will use ZMQ, a universal messaging library that allows us to establish our communication network. We will use the Request (client) – Reply (server) pattern. Our headset will do the Requesting, and the Python side will do the Replying. 
+First, we will create an empty object in Unity's Hierarchy window called Thread. The script running the thread will be attached to this object. We need to create a separate object to subscribe to an OnPythonResponse event later on from our last script.
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/e7907231-a445-47e2-b1f3-17768542939b)
 
-First, we will create an empty object in Unity's Hierarchy window and call it Thread. The script running the thread will be attached to this object. We need to create a separate object to subscribe to an OnPythonRespond event later on from our last script.
-Then, we need to create a function that will subscribe to the abovementioned event: OnCoinStateChanged. Whenever the player touches the coin, this event will be invoked, and the function that we subscribe to it in our ZMQ script will be called. In this script, invocation of the event leads to switching the Boolean keeping track of the coin state to true. This is needed because we need to encapsulate the thread’s job into a single function that runs in a while loop. Thus, we start by using Unity’s Awake() function, which is executed before any other game event. In this function, we subscribe to the event in the TouchCoinStatic. By the way, this is why we have two separate scripts for TouchCoin.cs and TouchCoinStatic.cs. TouchCoin.cs is attached to coin objects that are created and destroyed repeatedly. It would be more complicated to subscribe to their individual events. Thus, we just subscribe to an event of a static class that keeps track of a current coin state without being attached to any specific coin.
-To ensure the connection, we have to know the IP address of the Python server. We then need to create a Request socket object and connect it to the Python’s Reply socket at the provided port and ip address. We use “using new RequestSocket() as socket” in order to ensure that we handle closing the socket correctly, like with python’s with open() as file syntax. 
-Thus, when the coin is touched, the clause in the thread is executed, which leads to the headset sending “Touched coin!” message to the Python side and waiting for answer.
-Then, it waits for an answer. Upon receiving an answer, it invokes a second event in our project – OnPythonRespond. This event, as you might already suspect, has a subscriber in our last script: WhenPythonResponds.cs. The job of this script is to generate a new coin in a Random position. Once again, we need a function that is going to be subscribed to the ZMQ’s OnPythomn
+Then, we need to create a function that will subscribe to the abovementioned OnCoinStateChanged event. This  function is ReactChangedCoin. 
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/26a4416d-360a-47e3-b9d4-bf754fd73c29)
+
+Whenever the player touches the coin, the OnCoinStateChanged event will be invoked in TouchCoinStatic.cs, and the function that we subscribe to in our ZMQ.cs script will be called. In this script, invocation of the event leads to switching the boolTouchedCoin to true. This is needed because we must encapsulate the thread’s job into a single function that runs in a while loop.
+
+Thus, we use Unity’s Awake function, which is executed before any other game event. In this function, we create a thread, define which function it will be running and subscribe to the event in the TouchCoinStatic. By the way, this is why we have two separate scripts for TouchCoin.cs and TouchCoinStatic.cs. TouchCoin.cs is attached to coin objects that are created and destroyed repeatedly. It would be more complicated to subscribe to their individual events. Thus, we just subscribe to an event of a static class that keeps track of a current coin state without being attached to any specific coin.
+
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/97da97d5-aa43-4756-bf11-c4a746cadc48)
+
+
+
+
+To ensure the connection, we have to know the IP address of the Python server. We then need to create a Request socket object and connect it to the Python’s Reply socket at the provided port and ip address. We use “using new RequestSocket() as socket” in order to ensure that we handle closing the socket correctly, like with Python’s with open() as file syntax. 
+Thus, when the coin is touched, the clause in the thread is executed, which leads to the headset sending a “Touched coin!” message to the Python side and waiting for an answer.
+Then, it waits for an answer. Upon receiving an answer, a second event in our project – OnPythonResponse- is invoked. This event, as you might already suspect, has a subscriber in our last script: WhenPythonResponds.cs. The job of this script is to generate a new coin in a Random position. Once again, we need a function that is going to be subscribed to the ZMQ’s OnPythomn
 You can see the script for this below.
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
 
