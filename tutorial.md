@@ -116,7 +116,7 @@ To notify ZMQ, we will use events. It is a very convenient broadcast system. Whe
 Thus, whenever anywhere in the code, the TouchCoinStatic.coinState  is set to true, the OnTouchedCoin event is invoked. In the next section, we will see how this is used to communicate with Python.
 
 
-## ZMQ
+## ZMQ Unity
 The best resource on ZMQ: https://zeromq.org/
 
 First and foremost, you must remember that you can't use ZMQ in Unity's main thread. Unity's main thread is responsible for all the rendering and game logic, and it can't wait for the communication between devices. 
@@ -135,11 +135,14 @@ Thus, we use Unity’s Awake function, which is executed before any other game e
 
 
 
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4f11b70b-ac66-4c4c-83bd-0c2e6731e0c9)
 
 To ensure the connection, we have to know the IP address of the Python server. We then need to create a Request socket object and connect it to the Python’s Reply socket at the provided port and ip address. We use “using new RequestSocket() as socket” in order to ensure that we handle closing the socket correctly, like with Python’s with open() as file syntax. 
 Thus, when the coin is touched, the clause in the thread is executed, which leads to the headset sending a “Touched coin!” message to the Python side and waiting for an answer.
 Then, it waits for an answer. Upon receiving an answer, a second event in our project – OnPythonResponse- is invoked. This event, as you might already suspect, has a subscriber in our last script: WhenPythonResponds.cs. The job of this script is to generate a new coin in a Random position. Once again, we need a function that is going to be subscribed to the ZMQ’s OnPythomn
 You can see the script for this below.
+
+## ZMQ Python
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
 
 
