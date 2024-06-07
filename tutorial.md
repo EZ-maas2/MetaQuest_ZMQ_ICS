@@ -136,13 +136,23 @@ We also need to use Unity’s Awake function, which is executed before any other
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/97da97d5-aa43-4756-bf11-c4a746cadc48)
 
 
-
+Most importantly, our RequestFunc function that will be running on a thread repeatedly and exchange messages with the Python side when boolTouchedCoinvariable is set to true.
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4f11b70b-ac66-4c4c-83bd-0c2e6731e0c9)
 
-To ensure the connection, we have to know the IP address of the Python server. We then need to create a Request socket object and connect it to the Python’s Reply socket at the provided port and ip address. We use “using new RequestSocket() as socket” in order to ensure that we handle closing the socket correctly, like with Python’s with open() as file syntax. 
+To ensure the connection, we have to know the IP address of the Python server. We then need to create a Request socket object and connect it to the Python’s Reply socket at the provided port and IP address. We use “using new RequestSocket() as socket” in order to ensure that we handle closing the socket correctly, like with Python’s "with open(..) as file" syntax. 
+
+The OnDestroy function is use to handle interrupting and closing a thread, unsubscribiung fro, events and so on.
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4ed7ce86-f32f-4b93-a73c-25f735dff9b5)
+
+
 Thus, when the coin is touched, the clause in the thread is executed, which leads to the headset sending a “Touched coin!” message to the Python side and waiting for an answer.
-Then, it waits for an answer. Upon receiving an answer, a second event in our project – OnPythonResponse- is invoked. This event, as you might already suspect, has a subscriber in our last script: WhenPythonResponds.cs. The job of this script is to generate a new coin in a Random position. Once again, we need a function that is going to be subscribed to the ZMQ’s OnPythomn
+Then, it waits for an answer. Upon receiving an answer, a second event in our project – OnPythonResponse - is invoked. This event, as you might already suspect, has a subscriber in our last script: WhenPythonResponds.cs. 
+
+The job of this script is to generate a new coin in a Random position. Once again, we need a function that is going to be subscribed to the ZMQ’s OnPythomn
 You can see the script for this below.
+
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3a95f2ef-2acf-4d11-bbc1-1cdd2ba79c65)
+
 
 ## ZMQ Python
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
