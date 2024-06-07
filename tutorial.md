@@ -168,6 +168,13 @@ You can see the script for this below.
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3a95f2ef-2acf-4d11-bbc1-1cdd2ba79c65)
 
 
+When all those parts are in finished, you just need to assign the correct objects and properties to the public variables of your  WhenPythonResponds.cs.
+You need to do it in the Unity UI.
+First, create a Coin Prefab (prefabricated game object). Drag the Coin object from the Hierarchy into your Assets folder and save it as Coin. 
+Now, drag the coin prefab object to the Coin prefab section of the  Spawner game  object, and drag Thread gameobject to Zmq segment. It should look like this:
+
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/a228e5bb-4b76-4bf2-b6b1-18de479df460)
+
 ## ZMQ Python
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
 We will need to use pyzmq, playsound and os Python packages for this script.
@@ -181,11 +188,5 @@ To indicate that the server has received the request, we will use a playsound Py
 
 
 
-When all those parts are in finished, you just need to assign the correct objects and properties to the public variables of your  WhenPythonResponds.cs.
-You need to do it in the Unity UI.
-First, create a Coin Prefab (prefabricated game object). Drag the Coin object from the Hierarchy into your Assets folder and save it as Coin. 
-Now, drag the coin prefab object to the Coin prefab section of the  Spawner game  object, and drag Thread gameobject to Zmq segment. It should look like this:
-
-![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/a228e5bb-4b76-4bf2-b6b1-18de479df460)
 
 This should be it! Good luck!
