@@ -1,6 +1,24 @@
-MetaQuest + Unity + ZeroMQ 
+### Tutorial on combining MetaQuest with Unity and ZeroMQ 
 
- 
+## Game premise
+
+Our game is going to be very simple.  Our laptop running Python code  will create a server, and our headset will connect to this server. We will have a coin. Once we touch the coin, it will disappear and signal to the Python side that the coin  was touched. Python will play a sound and send a response back to the headset. Once the headset gets the response from Python, it will create a new coin. 
+We will have four C# scripts and one Python script. The Python script will host a server that waits for the request from a headset, plays  a sound when the request arrives, and sends a reply.
+The first Python script will dtect when the coin is touched. The second Python script will communicate this to the thread responsible for sending requests to the server. The third script will be running the thread that sends information to the Python server. The fourth script will handle the response from the Python server.
+
+
+## If you want to make it fully by yourself
+If you would rather figure it out by yourself rather than going over  a premade project, here is some barebones advice to get you started:
+
+1) This is  how to set the Unity project for MetaQuest: https://youtu.be/4kGD8q5kEx8?si=AF9NicktIufs01nO (until he starts using Interaction SDK)
+2) This tutorial is for installing ZMQ and  setting up C# to Python communication: https://vinnik-dmitry07.medium.com/a-python-unity-interface-with-zeromq-12720d6b7288 . You might want to use the Request-Reply Pattern.
+3) For the hand tracking, you will need OVRCameraRigInteraction. You can find game objects corresponding to the hands under OVRCameraRigInteraction > OVRCameraRig >  TrackingSpace.
+4) You will need a Collider object on the object you are touching and another one attached to your hand. At least one of them should also have a RigidBody.
+5) Use a separate thread in Unity to run the ZMQ communication; otherwise, it will crash.
+6) Use events to communicate between parts of your code.
+
+Good luck!
+
 
 ## Install everything: 
 
@@ -22,24 +40,7 @@ Tutorial on how to install ZeroMQ for Unity: https://vinnik-dmitry07.medium.com/
 
  
 
-## Game premise
 
-Our game is going to be very simple.  Our laptop running Python code  will create a server, and our headset will connect to this server. We will have a coin. Once we touch the coin, it will disappear and signal to the Python side that the coin  was touched. Python will play a sound and send a response back to the headset. Once the headset gets the response from Python, it will create a new coin. 
-We will have four C# scripts and one Python script. The Python script will host a server that waits for the request from a headset, plays  a sound when the request arrives, and sends a reply.
-The first Python script will dtect when the coin is touched. The second Python script will communicate this to the thread responsible for sending requests to the server. The third script will be running the thread that sends information to the Python server. The fourth script will handle the response from the Python server.
-
-
-## If you want to make it fully by yourself
-If you would rather figure it out by yourself rather than going over  a premade project, here is some barebones advice to get you started:
-
-1) This is  how to set the Unity project for MetaQuest: https://youtu.be/4kGD8q5kEx8?si=AF9NicktIufs01nO (until he starts using Interaction SDK)
-2) This tutorial is for installing ZMQ and  setting up C# to Python communication: https://vinnik-dmitry07.medium.com/a-python-unity-interface-with-zeromq-12720d6b7288 . You might want to use the Request-Reply Pattern.
-3) For the hand tracking, you will need OVRCameraRigInteraction. You can find game objects corresponding to the hands under OVRCameraRigInteraction > OVRCameraRig >  TrackingSpace.
-4) You will need a Collider object on the object you are touching and another one attached to your hand. At least one of them should also have a RigidBody.
-5) Use a separate thread in Unity to run the ZMQ communication; otherwise, it will crash.
-6) Use events to communicate between parts of your code.
-
-Good luck!
 
 
 
@@ -168,12 +169,17 @@ You can see the script for this below.
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3a95f2ef-2acf-4d11-bbc1-1cdd2ba79c65)
 
 
-When all those parts are in finished, you just need to assign the correct objects and properties to the public variables of your  WhenPythonResponds.cs.
+When all those parts are finished, you just need to assign the correct objects and properties to the public variables of your  WhenPythonResponds.cs.
 You need to do it in the Unity UI.
 First, create a Coin Prefab (prefabricated game object). Drag the Coin object from the Hierarchy into your Assets folder and save it as Coin. 
 Now, drag the coin prefab object to the Coin prefab section of the  Spawner game  object, and drag Thread gameobject to Zmq segment. It should look like this:
 
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/a228e5bb-4b76-4bf2-b6b1-18de479df460)
+
+
+Upload the game to the headset by plugging it in and going to File - Build Settings - Android. Press Add open scenes in the top panel. Under Run device select your headset. Press Build and Run.
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/4d6d116c-e4b9-4c0a-be6f-e072ba3f26d8)
+
 
 ## ZMQ Python
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
@@ -187,6 +193,7 @@ To indicate that the server has received the request, we will use a playsound Py
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/1f826940-ff95-455a-abc6-8f0b2247439c)
 
 
-
+Now, when you are running the Python code and the game on the headset simultaneously, provided they are on the same WiFi and you specified the IP address of the laptop in ZMQ.cs, the game should work.
+Whenever you touch the coin, it should disappear, your laptop should play a coin sound, and a new coin should appear.
 
 This should be it! Good luck!
