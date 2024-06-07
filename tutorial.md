@@ -4,7 +4,7 @@ MetaQuest + Unity + ZeroMQ
 
 ## Install everything: 
 
-Install MetaQuest Developer Hub and Oculus (Meta Quest Link) 
+Install MetaQuest Developer Hub and Oculus (Meta Quest Link), login with ICS account details provided in Basecamp 
 
 Install Unity Hub (https://unity.com/games?utm_source=google&utm_medium=cpc&utm_campaign=cc_dd_upr_emea_emea-t2_en_aw_sem-gg_acq_nb-pr_2023-11_cc-dd-solutions-emea-t2-nb_cc3022_ev-nb_id:71700000115996773&utm_content=cc_dd_upr_emea_aw_sem_gg_ev-br_pros_x_npd_cpc_kw_sd_all_x_x_game-develolpment_id:58700008606778974&utm_term=game%20development%20software&&&&&gad_source=1&gclid=CjwKCAjwgdayBhBQEiwAXhMxtleat1bob7-2pmd7BiDLxmATifpBxzg-8Xcr_7dJT7ayoZD6RMdqSBoCh5gQAvD_BwE&gclsrc=aw.ds) 
 
@@ -43,34 +43,19 @@ Good luck!
 
 
 
-## Setup Unity project
+## Setup your Unity project
 Open Unity Hub (Install Android Build Support) 
 
-From Unity Asset Store Install Meta XR All-in-One SDK 
+From Unity Asset Store Install Meta XR All-in-One SDK. Open it in Unit. Install it in the Package Manager. Restart Unity Editor if prompted. 
 
 https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657 
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3d630486-56ab-4f2d-98c8-fae1e6d56283)
 
- 
+  
 
- 
-
-Press Open in Unity. Install in the Package Manager. Restart Unity Editor if prompted. 
-
- 
-
-Alternatively, 
-
-Go to Window – Package Manager – My Assets 
+Alternatively, if you have already installed it for a different project, you can Go to Window – Package Manager – My Assets. Install Meta XR All-in-One SDK and Restart Editor if prompted.
 
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/2bede7c0-c2d0-480f-be9c-74ff81708863)
-
-
-Install Meta XR All-in-One SDK 
-
-Restart Editor if prompted 
-
- 
 
  
 
@@ -130,11 +115,13 @@ Thus, whenever anywhere in the code, the TouchCoinStatic.coinState  is set to tr
 
 
 ## ZMQ
+The best resource on ZMQ: https://zeromq.org/
 
-First and foremost, you have to keep in mind that you can't use ZMQ in the Unity's main thread. Because Unity's main thread is responsible for all the rendering and game logic, it can't be waiting on the communication between devices. 
-So, we set up a separate Unity Thread that will be responsible for communicating with the Python side. For that we will be using ZMQ, which is a tool that allows us to establish our communication network. We will be using Request (client) – Reply (server) pattern. Our headset will do the Requesting, and the Python side will be doing the Replying. 
-First, we will create an Empty object in the Hierarchy window of Unity and call it Thread. The script running the thread will be attached to this object. We need to create a separate object to later subscribe to an OnPythonRespond event later on from our last script.
-Then, we need to create a function that will subscribe to the event we described above: OnCoinStateChanged. Whenever the player touches the coin, this event will be invoked, and the function that we subscribe to it in our ZMQ script will be called. In this script, invocation of the event leads to switching the Boolean keeping track of the coin state to true. This is needed because we need to encapsulate the thread’s job into a single function that runs in a while loop. Thus, we start by using Unity’s Awake() function, which is executed before any other game event. In this function, we subscribe to the event in the TouchCoinStatic. By the way, this is why we have two separate scripts for TouchCoin.cs and TouchCoinStatic.cs. TouchCoin.cs is attached to coin objects that are created and destroyed repeatedly. It would be more complicated to subscribe to their individual events. Thus, we just subscribe to an event of a static class that keeps track of a current coin state without being attached to any specific coin.
+First and foremost, you must remember that you can't use ZMQ in Unity's main thread. Unity's main thread is responsible for all the rendering and game logic, and it can't wait for the communication between devices. 
+So, we set up a separate Unity Thread that will be responsible for communicating with the Python side. For that, we will use ZMQ, a universal messaging library that allows us to establish our communication network. We will use the Request (client) – Reply (server) pattern. Our headset will do the Requesting, and the Python side will do the Replying. 
+
+First, we will create an empty object in Unity's Hierarchy window and call it Thread. The script running the thread will be attached to this object. We need to create a separate object to subscribe to an OnPythonRespond event later on from our last script.
+Then, we need to create a function that will subscribe to the abovementioned event: OnCoinStateChanged. Whenever the player touches the coin, this event will be invoked, and the function that we subscribe to it in our ZMQ script will be called. In this script, invocation of the event leads to switching the Boolean keeping track of the coin state to true. This is needed because we need to encapsulate the thread’s job into a single function that runs in a while loop. Thus, we start by using Unity’s Awake() function, which is executed before any other game event. In this function, we subscribe to the event in the TouchCoinStatic. By the way, this is why we have two separate scripts for TouchCoin.cs and TouchCoinStatic.cs. TouchCoin.cs is attached to coin objects that are created and destroyed repeatedly. It would be more complicated to subscribe to their individual events. Thus, we just subscribe to an event of a static class that keeps track of a current coin state without being attached to any specific coin.
 To ensure the connection, we have to know the IP address of the Python server. We then need to create a Request socket object and connect it to the Python’s Reply socket at the provided port and ip address. We use “using new RequestSocket() as socket” in order to ensure that we handle closing the socket correctly, like with python’s with open() as file syntax. 
 Thus, when the coin is touched, the clause in the thread is executed, which leads to the headset sending “Touched coin!” message to the Python side and waiting for answer.
 Then, it waits for an answer. Upon receiving an answer, it invokes a second event in our project – OnPythonRespond. This event, as you might already suspect, has a subscriber in our last script: WhenPythonResponds.cs. The job of this script is to generate a new coin in a Random position. Once again, we need a function that is going to be subscribed to the ZMQ’s OnPythomn
