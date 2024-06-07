@@ -122,6 +122,8 @@ The best resource on ZMQ: https://zeromq.org/
 First and foremost, you must remember that you can't use ZMQ in Unity's main thread. Unity's main thread is responsible for all the rendering and game logic, and it can't wait for the communication between devices. 
 So, we set up a separate Unity Thread that will be responsible for communicating with the Python side. For that, we will use ZMQ, a universal messaging library that allows us to establish our communication network. We will use the Request (client) – Reply (server) pattern. Our headset will do the Requesting, and the Python side will do the Replying. 
 First, we will create an empty object in Unity's Hierarchy window called Thread. The script running the thread will be attached to this object. We need to create a separate object to subscribe to an OnPythonResponse event later on from our last script.
+
+Below, you can see all private and public variables declared for the ZMQ class. Most notable ones are server_address that must correspond to your laptop's IP  address, OnPythonResponse event that triggers our last C# script, and boolTouchedCoin that will control the behavior in our main function that is being run on the thread. 
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/e7907231-a445-47e2-b1f3-17768542939b)
 
 Then, we need to create a function that will subscribe to the abovementioned OnCoinStateChanged event. This  function is ReactChangedCoin. 
