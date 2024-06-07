@@ -156,7 +156,13 @@ You can see the script for this below.
 
 ## ZMQ Python
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
+The code will be pretty similar to ZMQ on the C# side, except instead of connecting to a server, we have to bind a server instead.  Additionally,  we will be using the Reply socket type for the Python side.
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/d745cf65-3b30-461d-82f7-c5f5b6d96396)
 
+To indicate that the server has received the request, we will use a playsound Python package to play a sound whenever we touch a coin. The sound can be found in this project as sound_coin.mp3.
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3cde2da9-ab74-4a8b-a53d-1374b84f1e38)
+
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/1f826940-ff95-455a-abc6-8f0b2247439c)
 
 
 
