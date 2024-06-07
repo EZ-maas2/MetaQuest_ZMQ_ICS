@@ -100,6 +100,16 @@ To make the coin react to the collision, we must write a C# script and attach it
 In our game, we will Destroy and Instantiate multiple coins. To make communicating with the Python side easier, we will also make a separate static class called  TouchCoinStatic.
 It is not going to be attached to any game object. Its only job is tracking whether a coin was touched and communicating it to the Python code. 
 
+To make sure that a Hand object can produce a collision, we must create an empty object under OVRCameraRigInteraction -  OVRCameraRig - TrackingSpace - LeftHandAnchor (or Right or both) - Create empty and name HandCollider and attach a sphere collider to it. 
+Hand![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/7ac67321-8eb4-4634-89dc-9bc80b981b99)
+
+Use the following parameters:
+![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/e9e392f3-7be1-4462-b185-2f94091aef47)
+
+
+
+
+
 Let's get back to the TouchCoin script. We are going to use Unity's in-built way to handle collisions. We will use the OnTriggerEnter function: when the Box Collider attached to the coin collides with something, it calls this function. The function will check what the Box Collider collided with, record the collision in a static class TouchCoinStatic, and delete the coin object.
 
 ![A screenshot of the TouchCoin script](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/blob/master/Images/TouchCoin.png)
@@ -156,14 +166,14 @@ You can see the script for this below.
 
 ## ZMQ Python
 This concludes our discussion of the C# scripts. Now, let’s look at our Python script.
-The code will be pretty similar to ZMQ on the C# side, except instead of connecting to a server, we have to bind a server instead.  Additionally,  we will be using the Reply socket type for the Python side.
+We will need to use pyzmq, playsound and os Python packages for this script.
+The code will be pretty similar to ZMQ on the C# side, except we have to bind a server instead of connecting to a server.  Additionally,  we will be using the Reply socket type for the Python side.
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/d745cf65-3b30-461d-82f7-c5f5b6d96396)
 
 To indicate that the server has received the request, we will use a playsound Python package to play a sound whenever we touch a coin. The sound can be found in this project as sound_coin.mp3.
-![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/3cde2da9-ab74-4a8b-a53d-1374b84f1e38)
 
 ![image](https://github.com/EZ-maas2/MetaQuest_ZMQ_ICS/assets/85937429/1f826940-ff95-455a-abc6-8f0b2247439c)
 
 
 
-
+When all those parts are in finished, you just need to assign
